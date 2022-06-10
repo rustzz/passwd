@@ -12,8 +12,8 @@ env:
   COMMIT_SHA: ${{ github.sha }}
   OUT_APK: "build/app/outputs/apk/release/app-release.apk"
   OUT_AAB: "build/app/outputs/bundle/release/app-release.aab"
-  OUT_LINUX: "build/linux/x64/release"
-  OUT_IOS: "build/ios/ipa"
+  OUT_LINUX: "build/linux/"
+  OUT_IOS: "build/"
 
 jobs:
   BuildingAndroid:
@@ -74,7 +74,8 @@ jobs:
           sudo apt-get install -y ninja-build libgtk-3-dev
       - run: flutter config --enable-linux-desktop
       - run: flutter build linux
-      - run: tar -czvf "$OUT_LINUX"/file.tar.gz "$OUT_LINUX/*"
+      - run: ls $OUT_LINUX
+      # - run: tar -czvf "$OUT_LINUX"/file.tar.gz "$OUT_LINUX/*"
       - uses: actions/upload-artifact@master
         with:
           name: release
@@ -92,4 +93,4 @@ jobs:
           architecture: x64
       - run: flutter config --enable-macos-desktop
       - run: flutter build macos
-      - run: ls build
+      - run: ls build/macos
