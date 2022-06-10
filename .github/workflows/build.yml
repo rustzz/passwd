@@ -12,6 +12,8 @@ env:
   COMMIT_SHA: ${{ github.sha }}
   OUT_APK: "build/app/outputs/apk/release/app-release.apk"
   OUT_AAB: "build/app/outputs/bundle/release/app-release.aab"
+  OUT_LINUX: "build/linux/x64/release"
+  OUT_IOS: "build/ios/ipa"
 
 jobs:
   BuildingAndroid:
@@ -35,8 +37,8 @@ jobs:
             $OUT_APK
             $OUT_AAB
       - run: |
-          curl -F document=@"${OUT_APK}" -F "caption='COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})  MESSAGE: ${COMMIT_MESSAGE}'" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
-          curl -F document=@"${OUT_AAB}" -F "caption='COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})  MESSAGE: ${COMMIT_MESSAGE}'" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
+          curl -F document=@"${OUT_APK}" -F "caption=COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})  MESSAGE: `${COMMIT_MESSAGE}`" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
+          curl -F document=@"${OUT_AAB}" -F "caption=COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})  MESSAGE: `${COMMIT_MESSAGE}`" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
 
   BuildingWindows:
     runs-on: windows-latest
@@ -57,8 +59,8 @@ jobs:
           flutter-version: '3.0.1'
           architecture: x64
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build ios --release --no-codesign
+      - run: ls $OUT_IOS
 
   BuildingLinux:
     runs-on: ubuntu-latest
@@ -72,6 +74,13 @@ jobs:
           sudo apt-get install -y ninja-build libgtk-3-dev
       - run: flutter config --enable-linux-desktop
       - run: flutter build linux
+      - run: tar -czvf "$OUT_LINUX"/file.tar.gz "$OUT_LINUX/*"
+      - uses: actions/upload-artifact@master
+        with:
+          name: release
+          path: $OUT_LINUX
+      - run: |
+          curl -F document=@"${OUT_LINUX}" -F "caption=COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})  MESSAGE: `${COMMIT_MESSAGE}`" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
 
   BuildingMacOS:
     runs-on: macos-latest
@@ -83,3 +92,4 @@ jobs:
           architecture: x64
       - run: flutter config --enable-macos-desktop
       - run: flutter build macos
+      - run: ls build
