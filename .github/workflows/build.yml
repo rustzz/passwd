@@ -36,8 +36,7 @@ jobs:
             $OUT_APK
             $OUT_AAB
       - run: |
-          export CAPTION = "COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})
-          MESSAGE: ${COMMIT_MESSAGE}"
+          export CAPTION = "COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE: ${COMMIT_MESSAGE}"
           curl -F document=@"${OUT_APK}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
           curl -F document=@"${OUT_AAB}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
 
@@ -59,7 +58,7 @@ jobs:
           name: release
           path: $OUT_LINUX
       - run: |
-          export CAPTION = "COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})
+          export CAPTION = "COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE: ${COMMIT_MESSAGE}"
           curl -F document=@"${OUT_LINUX}/../passwd.tar.gz" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
 
   # BuildingWindows:
