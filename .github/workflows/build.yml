@@ -68,7 +68,19 @@ jobs:
           channel: 'stable'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
-      - name: Zip archive
-        run: zip -rv passwd.zip D:\\build\\windows\\runner\\Release
-        shell: bash
-      - run: dir
+      - uses: actions/upload-artifact@master
+        with:
+          name: Release
+          path: D:\\build\\windows\\runner\\Release
+  BuildingWindowsUpload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@master
+        with:
+          name: Release
+          path: build/windows/runner/Release
+
+      - run: apt update; apt install -y zip curl
+      - run: ls
+      - run: zip -rv passwd.zip build/windows/runner/Release
