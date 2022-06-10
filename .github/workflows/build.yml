@@ -68,6 +68,7 @@ jobs:
           channel: 'stable'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
+      - name: Zip archive
         run: zip -rv passwd.zip D:\\build\\windows\\runner\\Release
         shell: bash
       - run: dir
