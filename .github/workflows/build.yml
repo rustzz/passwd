@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+
+jobs:
+  Building:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze .
+      - run: flutter build apk
+      - run: flutter build appbundle
+      - uses: actions/upload-artifact@master
+        with:
+          name: release
+          path: |
+            build/app/outputs/apk/release/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+      - run: |
+          curl -F document=@"build/app/outputs/apk/release/app-release.apk" -F "caption=New Build" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
+          curl -F document=@"build/app/outputs/bundle/release/app-release.aab" -F "caption=New Build" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
