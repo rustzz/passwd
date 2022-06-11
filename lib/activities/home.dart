@@ -27,8 +27,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     passwordTimeLineController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
-    )
-    ..addListener(() {
+    );
+    passwordTimeLineController.addListener(() {
       setState(() {});
     });
     passwordTimeLineController.repeat(reverse: true);
@@ -54,7 +54,116 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              showMenu(serviceList[index]);
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return SingleChildScrollView(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.0),
+                          topRight: Radius.circular(16.0),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: (65 * 5).toDouble(),
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    child: ListView(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      children: <Widget>[
+                                        const Center(
+                                          child: Text(
+                                            "Информация",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                        ListTile(
+                                          title: const Text("Сервис"),
+                                          subtitle:
+                                              Text(serviceList[index].name),
+                                          onTap: () {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                  text:
+                                                      serviceList[index].name),
+                                            );
+                                          },
+                                        ),
+                                        ListTile(
+                                          title: const Text("Пользователь"),
+                                          subtitle:
+                                              Text(serviceList[index].username),
+                                          onTap: () {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                text:
+                                                    serviceList[index].username,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        ListTile(
+                                          title: const Text("Пароль"),
+                                          subtitle:
+                                              const Text("• • • • • • • •"),
+                                          onTap: () {
+                                            Clipboard.setData(
+                                              ClipboardData(
+                                                text:
+                                                    serviceList[index].password,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: ListTile(
+                                                title: const Text("Ключ"),
+                                                subtitle: Text(
+                                                    serviceList[index].otp),
+                                                onTap: () {
+                                                  Clipboard.setData(
+                                                    ClipboardData(
+                                                      text: serviceList[index]
+                                                          .otp,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.all(15),
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    passwordTimeLineController
+                                                        .value,
+                                                strokeWidth: 8,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+              // showMenu(serviceList[index]);
             },
             child: Card(
               child: Column(
@@ -168,21 +277,27 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                               title: const Text("Сервис"),
                               subtitle: Text(service.name),
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: service.name));
+                                Clipboard.setData(
+                                  ClipboardData(text: service.name),
+                                );
                               },
                             ),
                             ListTile(
                               title: const Text("Пользователь"),
                               subtitle: Text(service.username),
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: service.username));
+                                Clipboard.setData(
+                                  ClipboardData(text: service.username),
+                                );
                               },
                             ),
                             ListTile(
                               title: const Text("Пароль"),
                               subtitle: const Text("• • • • • • • •"),
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: service.password));
+                                Clipboard.setData(
+                                  ClipboardData(text: service.password),
+                                );
                               },
                             ),
                             Row(
@@ -192,7 +307,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                                     title: const Text("Ключ"),
                                     subtitle: Text(service.otp),
                                     onTap: () {
-                                      Clipboard.setData(ClipboardData(text: service.otp));
+                                      Clipboard.setData(
+                                        ClipboardData(text: service.otp),
+                                      );
                                     },
                                   ),
                                 ),
