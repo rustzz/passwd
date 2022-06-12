@@ -3,11 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:passwd/activities/edit.dart';
 
 class Service {
-  final String name;
-  final String username;
-  final String password;
-  final String otp;
-
+  final String name, username, password, otp;
   Service(this.name, this.username, this.password, this.otp);
 }
 
@@ -32,6 +28,23 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       setState(() {});
     });
     passwordTimeLineController.repeat(reverse: true);
+
+    // for tests
+    serviceList.add(Service("Youtube", "rustzz", "qwerty1", "1"));
+    serviceList.add(Service("VK", "rustzz", "qwerty12", "12"));
+    serviceList.add(Service("Stackoverflow", "rustzz", "qwerty123", "123"));
+    serviceList.add(Service("4PDA", "rustzz", "qwerty1234", "1234"));
+    serviceList.add(Service("Github", "rustzz", "qwerty12345", "12345"));
+    serviceList.add(Service("Gentoo", "rustzz", "qwerty123456", "123456"));
+    serviceList.add(Service("LibreFM", "rustzz", "qwerty1234567", "123456"));
+    serviceList.add(Service("Google", "rustzz", "qwerty12345678", "123456"));
+    serviceList.add(Service("Dropbox", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("Genius", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("Heroku", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("LOR", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("Microsoft", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("Facebook", "rustzz", "qwerty123", "123456"));
+    serviceList.add(Service("Reddit", "rustzz", "qwerty123", "123456"));
     super.initState();
   }
 
