@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:passwd/activities/edit.dart';
-
-class Service {
-  final String name, username, password, otp;
-  Service(this.name, this.username, this.password, this.otp);
-}
+import 'package:passwd/activities/home/card.dart';
+import 'package:passwd/activities/home/nav.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -123,11 +119,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             ),
                           );
                           setState(() {
-                            serviceList[index] = (Service(
+                            serviceList[index] = Service(
                                 result["name"],
                                 result["username"],
                                 result["password"],
-                                result["otp"]));
+                                result["otp"]);
                           });
                         },
                         icon: const Icon(Icons.edit),
@@ -177,159 +173,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-}
-
-class CardInfo extends StatelessWidget {
-  const CardInfo({
-    Key? key,
-    required this.serviceList,
-    required this.passwordTimeLineController,
-    required this.indexOfCard,
-  }) : super(key: key);
-
-  final List<Service> serviceList;
-  final AnimationController passwordTimeLineController;
-  final int indexOfCard;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-          color: Color(0xFF424242),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: (65 * 5).toDouble(),
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      child: ListView(
-                        physics:
-                            const NeverScrollableScrollPhysics(),
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Информация",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text("Сервис"),
-                            subtitle:
-                                Text(serviceList[index].name),
-                            onTap: () {
-                              Clipboard.setData(
-                                ClipboardData(
-                                    text:
-                                        serviceList[index].name),
-                              );
-                            },
-                          ),
-                          ListTile(
-                            title: const Text("Пользователь"),
-                            subtitle:
-                                Text(serviceList[index].username),
-                            onTap: () {
-                              Clipboard.setData(
-                                ClipboardData(
-                                  text:
-                                      serviceList[index].username,
-                                ),
-                              );
-                            },
-                          ),
-                          ListTile(
-                            title: const Text("Пароль"),
-                            subtitle:
-                                const Text("• • • • • • • •"),
-                            onTap: () {
-                              Clipboard.setData(
-                                ClipboardData(
-                                  text:
-                                      serviceList[index].password,
-                                ),
-                              );
-                            },
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ListTile(
-                                  title: const Text("Ключ"),
-                                  subtitle: Text(
-                                      serviceList[index].otp),
-                                  onTap: () {
-                                    Clipboard.setData(
-                                      ClipboardData(
-                                        text: serviceList[index]
-                                            .otp,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15),
-                                child: CircularProgressIndicator(
-                                  value:
-                                      passwordTimeLineController
-                                          .value,
-                                  strokeWidth: 8,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class NavDrawer extends StatelessWidget {
-  const NavDrawer({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          // const DrawerHeader(
-          //   child: Text("Passwd"),
-          // ),
-          ListTile(
-            title: const Text("Passwd"),
-            onTap: () {
-              //
-            },
-          ),
-          ListTile(
-            title: const Text("Настройки"),
-            onTap: () {
-              //
-            },
-          ),
-        ],
-      ),
     );
   }
 }

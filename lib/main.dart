@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passwd/activities/home.dart';
+import 'package:passwd/activities/home/home.dart';
 import 'package:passwd/activities/add.dart';
 import 'package:passwd/activities/edit.dart';
 
