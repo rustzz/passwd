@@ -44,17 +44,46 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10.0),
+          bottomRight: Radius.circular(10.0),
+        ),
+        child: Drawer(
+          child: ListView(
+            children: [
+              // const DrawerHeader(
+              //   child: Text("Passwd"),
+              // ),
+              ListTile(
+                title: const Text("Passwd"),
+                onTap: () {
+                  //
+                },
+              ),
+              ListTile(
+                title: const Text("Настройки"),
+                onTap: () {
+                  //
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
-        shadowColor: Colors.transparent,
+        automaticallyImplyLeading: false,
         title: const Text("Passwd"),
         centerTitle: true,
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(5),
         itemCount: serviceList.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
               showModalBottomSheet(
+                backgroundColor: Colors.transparent,
                 context: context,
                 builder: (BuildContext context) {
                   return SingleChildScrollView(
@@ -64,6 +93,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                           topLeft: Radius.circular(16.0),
                           topRight: Radius.circular(16.0),
                         ),
+                        color: Color(0xFF424242),
                       ),
                       child: Column(
                         children: [
@@ -166,6 +196,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               // showMenu(serviceList[index]);
             },
             child: Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Column(
                 children: [
                   ListTile(
@@ -214,23 +248,33 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           );
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: IconTheme(
-          data: IconThemeData(color: Theme.of(context).colorScheme.primary),
-          child: Row(
-            children: [
-              IconButton(
-                tooltip: "Меню",
-                onPressed: () {},
-                icon: const Icon(Icons.menu),
-              )
-            ],
-          ),
-        ),
+      bottomNavigationBar: Builder(
+        builder: (BuildContext context) {
+          return BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            child: IconTheme(
+              data: IconThemeData(color: Theme.of(context).colorScheme.primary),
+              child: Row(
+                children: [
+                  IconButton(
+                    tooltip: "Меню",
+                    color: const Color(0xFFFFFFFF),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: const Icon(Icons.menu),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 20,
         tooltip: "Добавить",
+        foregroundColor: const Color(0xFFFFFFFF),
+        backgroundColor: const Color(0xFF424242),
         onPressed: () async {
           dynamic result = await Navigator.of(context).pushNamed("/add");
           setState(() {
@@ -241,98 +285,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-
-  showMenu(Service service) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: (50 * 6).toDouble(),
-                child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: <Widget>[
-                            const Center(
-                              child: Text(
-                                "Информация",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
-                            ListTile(
-                              title: const Text("Сервис"),
-                              subtitle: Text(service.name),
-                              onTap: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: service.name),
-                                );
-                              },
-                            ),
-                            ListTile(
-                              title: const Text("Пользователь"),
-                              subtitle: Text(service.username),
-                              onTap: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: service.username),
-                                );
-                              },
-                            ),
-                            ListTile(
-                              title: const Text("Пароль"),
-                              subtitle: const Text("• • • • • • • •"),
-                              onTap: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: service.password),
-                                );
-                              },
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ListTile(
-                                    title: const Text("Ключ"),
-                                    subtitle: Text(service.otp),
-                                    onTap: () {
-                                      Clipboard.setData(
-                                        ClipboardData(text: service.otp),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(15),
-                                  child: CircularProgressIndicator(
-                                    value: passwordTimeLineController.value,
-                                    strokeWidth: 8,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

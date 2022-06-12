@@ -38,11 +38,13 @@ class AddState extends State<Add> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextField(
               autofocus: true,
               controller: nameTF,
               decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 labelText: "Название сервиса",
                 errorText: nameEmpty ? "Впишите название" : null,
               ),
@@ -50,6 +52,7 @@ class AddState extends State<Add> {
             TextField(
               controller: usernameTF,
               decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 labelText: "Имя пользователя",
                 errorText: usernameEmpty ? "Впишите имя пользователя" : null,
               ),
@@ -58,6 +61,7 @@ class AddState extends State<Add> {
               controller: passwordTF,
               obscureText: true,
               decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 labelText: "Пароль",
                 errorText: passwordEmpty ? "Впишите пароль" : null,
               ),
@@ -65,6 +69,7 @@ class AddState extends State<Add> {
             TextField(
               controller: otpTF,
               decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 labelText: "Ключ",
                 errorText: otpEmpty ? "Впишите ключ OTP" : null,
               ),
