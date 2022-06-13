@@ -102,7 +102,7 @@ class HomeState extends State<Home> {
                 children: [
                   IconButton(
                     tooltip: "Меню",
-                    color: buttonFGColor,
+                    color: widgetFGColor,
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
                     },
@@ -117,8 +117,8 @@ class HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         elevation: 20,
         tooltip: "Добавить",
-        foregroundColor: buttonFGColor,
-        backgroundColor: buttonBGColor,
+        foregroundColor: widgetFGColor,
+        backgroundColor: widgetBGColor,
         onPressed: () async {
           dynamic result = await Navigator.of(context).pushNamed("/add");
           if (result == null) return;

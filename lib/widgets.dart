@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 // TextField
-class MyTextField extends StatelessWidget {
-  const MyTextField(
+//ignore: must_be_immutable
+class MyTextField extends StatefulWidget {
+  MyTextField(
       {Key? key,
       this.controller,
       this.autofocus = false,
@@ -14,23 +15,56 @@ class MyTextField extends StatelessWidget {
 
   final TextEditingController? controller;
   final bool autofocus;
-  final bool obscureText;
+  bool obscureText;
   final String? labelText;
   final String? errorText;
 
   @override
+  MyTextFieldState createState() => MyTextFieldState();
+}
+
+class MyTextFieldState extends State<MyTextField> {
+  bool obsOverride = false;
+
+  @override
+  void initState() {
+    obsOverride = widget.obscureText;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Widget suffixIcon = IconButton(
+      icon: Icon(
+        widget.obscureText ? Icons.visibility : Icons.visibility_off,
+        color: widgetBGColor,
+      ),
+      onPressed: () {
+        setState(() {
+          widget.obscureText = !widget.obscureText;
+        });
+      },
+    );
     return TextField(
-      autofocus: autofocus,
-      controller: controller,
+      cursorColor: widgetBGColor,
+      autofocus: widget.autofocus,
+      controller: widget.controller,
       decoration: InputDecoration(
+        suffixIcon: obsOverride ? suffixIcon : null,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widgetBGColor,
+            width: 3,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        labelText: labelText,
-        errorText: errorText,
+        labelText: widget.labelText,
+        errorText: widget.errorText,
       ),
-      obscureText: obscureText,
+      obscureText: widget.obscureText,
     );
   }
 }
@@ -47,8 +81,8 @@ class MyButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-        backgroundColor: MaterialStateProperty.all(buttonBGColor),
-        foregroundColor: MaterialStateProperty.all(buttonFGColor),
+        backgroundColor: MaterialStateProperty.all(widgetBGColor),
+        foregroundColor: MaterialStateProperty.all(widgetFGColor),
       ),
       onPressed: onPressed,
       child: child,

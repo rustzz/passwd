@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:random_password_generator/random_password_generator.dart';
 import 'package:passwd/widgets.dart';
+import 'package:passwd/constants.dart';
 
 class GenPage extends StatefulWidget {
   const GenPage({Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class GenPageState extends State<GenPage> {
                       children: [
                         const Text("Буквы"),
                         Checkbox(
+                          activeColor: widgetBGColor,
                           value: enableLetters,
                           onChanged: (value) {
                             setState(() {
@@ -73,6 +75,7 @@ class GenPageState extends State<GenPage> {
                       children: [
                         const Text("Верхний регистр"),
                         Checkbox(
+                          activeColor: widgetBGColor,
                           value: enableUppercase,
                           onChanged: (value) {
                             setState(() {
@@ -95,6 +98,7 @@ class GenPageState extends State<GenPage> {
                   children: [
                     const Text("Цифры"),
                     Checkbox(
+                      activeColor: widgetBGColor,
                       value: enableNumbers,
                       onChanged: (value) {
                         setState(() {
@@ -112,6 +116,7 @@ class GenPageState extends State<GenPage> {
                   children: [
                     const Text("Спец. символы"),
                     Checkbox(
+                      activeColor: widgetBGColor,
                       value: enableSpecialChar,
                       onChanged: (value) {
                         setState(() {
@@ -126,6 +131,7 @@ class GenPageState extends State<GenPage> {
                   ],
                 ),
                 Slider(
+                  activeColor: widgetBGColor,
                   value: passwordLength,
                   onChanged: (value) {
                     debugPrint("$value");

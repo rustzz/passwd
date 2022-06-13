@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
-const buttonBGColor = Color(0xFF325EA8);
-const buttonFGColor = Color(0xFFFFFFFF);
+const widgetBGColor = Color(0xFF325EA8);
+const widgetFGColor = Color(0xFFFFFFFF);
