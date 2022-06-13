@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passwd/widgets.dart';
 
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
@@ -29,61 +30,51 @@ class AddState extends State<Add> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Passwd"),
-        centerTitle: true,
-      ),
+    return MyScaffold(
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(height: 10),
-            TextField(
+            MyTextField(
               autofocus: true,
               controller: nameTF,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                labelText: "Название сервиса",
-                errorText: nameEmpty ? "Впишите название" : null,
-              ),
+              labelText: "Название сервиса",
+              errorText: nameEmpty ? "Впишите название" : null,
             ),
             const SizedBox(height: 20),
-            TextField(
+            MyTextField(
               controller: usernameTF,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                labelText: "Имя пользователя",
-                errorText: usernameEmpty ? "Впишите имя пользователя" : null,
-              ),
+              labelText: "Имя пользователя",
+              errorText: usernameEmpty ? "Впишите имя пользователя" : null,
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: passwordTF,
-              obscureText: true,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+            Row(
+              children: [
+                Expanded(
+                  child: MyTextField(
+                    controller: passwordTF,
+                    obscureText: true,
+                    labelText: "Пароль",
+                    errorText: passwordEmpty ? "Впишите пароль" : null,
+                  ),
                 ),
-                labelText: "Пароль",
-                errorText: passwordEmpty ? "Впишите пароль" : null,
-              ),
+                const SizedBox(width: 10),
+                MyButton(
+                  onPressed: () async {
+                    dynamic result =
+                        await Navigator.of(context).pushNamed("/genPassword");
+                    if (result == null) return;
+                    passwordTF.text = result["password"];
+                  },
+                  child: const Text("Генерировать"),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
-            TextField(
+            MyTextField(
               controller: otpTF,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                labelText: "Ключ",
-                errorText: otpEmpty ? "Впишите ключ OTP" : null,
-              ),
+              labelText: "Ключ",
+              errorText: otpEmpty ? "Впишите ключ OTP" : null,
             ),
             const SizedBox(height: 50),
             IconButton(

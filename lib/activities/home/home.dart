@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:passwd/activities/edit.dart';
 import 'package:passwd/activities/home/card.dart';
 import 'package:passwd/activities/home/nav.dart';
+import 'package:passwd/constants.dart';
+import 'package:passwd/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -36,18 +38,14 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MyScaffold(
+      automaticallyImplyLeading: false,
       drawer: const ClipRRect(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(10.0),
           bottomRight: Radius.circular(10.0),
         ),
         child: NavDrawer(),
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("Passwd"),
-        centerTitle: true,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(5),
@@ -66,55 +64,30 @@ class HomeState extends State<Home> {
                 },
               );
             },
-            child: Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(serviceList[index].name),
-                    subtitle: Text(serviceList[index].username),
+            child: MyCard(
+              name: serviceList[index].name,
+              username: serviceList[index].username,
+              onPressedDelete: () {
+                setState(() {
+                  serviceList.removeAt(index);
+                });
+              },
+              onPressedEdit: () async {
+                dynamic result = await Navigator.of(context).pushNamed(
+                  "/edit",
+                  arguments: EditArgs(
+                    serviceList[index].name,
+                    serviceList[index].username,
+                    serviceList[index].password,
+                    serviceList[index].otp,
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                        tooltip: "Удалить",
-                        onPressed: () {
-                          setState(() {
-                            serviceList.removeAt(index);
-                          });
-                        },
-                        icon: const Icon(Icons.delete),
-                      ),
-                      IconButton(
-                        tooltip: "Изменить",
-                        onPressed: () async {
-                          dynamic result =
-                              await Navigator.of(context).pushNamed(
-                            "/edit",
-                            arguments: EditArgs(
-                              serviceList[index].name,
-                              serviceList[index].username,
-                              serviceList[index].password,
-                              serviceList[index].otp,
-                            ),
-                          );
-                          setState(() {
-                            serviceList[index] = Service(
-                                result["name"],
-                                result["username"],
-                                result["password"],
-                                result["otp"]);
-                          });
-                        },
-                        icon: const Icon(Icons.edit),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                );
+                if (result == null) return;
+                setState(() {
+                  serviceList[index] = Service(result["name"],
+                      result["username"], result["password"], result["otp"]);
+                });
+              },
             ),
           );
         },
@@ -129,7 +102,7 @@ class HomeState extends State<Home> {
                 children: [
                   IconButton(
                     tooltip: "Меню",
-                    color: const Color(0xFFFFFFFF),
+                    color: buttonFGColor,
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
                     },
@@ -144,10 +117,11 @@ class HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         elevation: 20,
         tooltip: "Добавить",
-        foregroundColor: const Color(0xFFFFFFFF),
-        backgroundColor: const Color(0xFF424242),
+        foregroundColor: buttonFGColor,
+        backgroundColor: buttonBGColor,
         onPressed: () async {
           dynamic result = await Navigator.of(context).pushNamed("/add");
+          if (result == null) return;
           setState(() {
             serviceList.add(Service(result["name"], result["username"],
                 result["password"], result["otp"]));
