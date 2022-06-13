@@ -10,7 +10,8 @@ class MyTextField extends StatefulWidget {
       this.autofocus = false,
       this.obscureText = false,
       this.labelText,
-      this.errorText})
+      this.errorText,
+      this.suffixText})
       : super(key: key);
 
   final TextEditingController? controller;
@@ -18,6 +19,7 @@ class MyTextField extends StatefulWidget {
   bool obscureText;
   final String? labelText;
   final String? errorText;
+  final String? suffixText;
 
   @override
   MyTextFieldState createState() => MyTextFieldState();
@@ -50,6 +52,7 @@ class MyTextFieldState extends State<MyTextField> {
       autofocus: widget.autofocus,
       controller: widget.controller,
       decoration: InputDecoration(
+        suffixText: widget.suffixText,
         suffixIcon: obsOverride ? suffixIcon : null,
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(

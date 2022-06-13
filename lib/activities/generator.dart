@@ -36,6 +36,7 @@ class GenPageState extends State<GenPage> {
             MyTextField(
               controller: genPasswordTF,
               labelText: "Пароль",
+              suffixText: passwordLength.round().toString(),
             ),
             Column(
               children: [
@@ -134,7 +135,6 @@ class GenPageState extends State<GenPage> {
                   activeColor: widgetBGColor,
                   value: passwordLength,
                   onChanged: (value) {
-                    debugPrint("$value");
                     setState(() {
                       passwordLength = value;
                     });

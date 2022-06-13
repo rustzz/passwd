@@ -56,6 +56,7 @@ class AddState extends State<Add> {
                     obscureText: true,
                     labelText: "Пароль",
                     errorText: passwordEmpty ? "Впишите пароль" : null,
+                    suffixText: passwordTF.text.length.toString(),
                   ),
                 ),
                 const SizedBox(width: 10),

@@ -67,16 +67,12 @@ class EditState extends State<Edit> {
             Row(
               children: [
                 Expanded(
-                  child: TextField(
+                  child: MyTextField(
                     controller: passwordTF,
                     obscureText: true,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      labelText: "Пароль",
-                      errorText: passwordEmpty ? "Впишите пароль" : null,
-                    ),
+                    labelText: "Пароль",
+                    errorText: passwordEmpty ? "Впишите пароль" : null,
+                    suffixText: passwordTF.text.length.toString(),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -92,15 +88,10 @@ class EditState extends State<Edit> {
               ],
             ),
             const SizedBox(height: 20),
-            TextField(
+            MyTextField(
               controller: otpTF,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                labelText: "Ключ",
-                errorText: otpEmpty ? "Впишите ключ OTP" : null,
-              ),
+              labelText: "Ключ",
+              errorText: otpEmpty ? "Впишите ключ OTP" : null,
             ),
             const SizedBox(height: 50),
             IconButton(

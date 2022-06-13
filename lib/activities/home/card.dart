@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Service {
-  final String name, username, password, otp;
-  Service(this.name, this.username, this.password, this.otp);
+  final String name, username, password, otpKey;
+  Service(this.name, this.username, this.password, this.otpKey);
 }
 
 class CardInfo extends StatefulWidget {
@@ -21,24 +21,25 @@ class CardInfo extends StatefulWidget {
 }
 
 class CardInfoState extends State<CardInfo> with TickerProviderStateMixin {
-  late AnimationController passwordTimeLineController;
+  late AnimationController otpTimeLineController;
 
   @override
   void initState() {
-    passwordTimeLineController = AnimationController(
+    otpTimeLineController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
     );
-    passwordTimeLineController.addListener(() {
+    otpTimeLineController.addListener(() {
       setState(() {});
     });
-    passwordTimeLineController.repeat(reverse: true);
+    otpTimeLineController.repeat(reverse: true);
+
     super.initState();
   }
 
   @override
   void dispose() {
-    passwordTimeLineController.dispose();
+    otpTimeLineController.dispose();
     super.dispose();
   }
 
@@ -61,8 +62,7 @@ class CardInfoState extends State<CardInfo> with TickerProviderStateMixin {
               children: [
                 Positioned(
                   child: ListView(
-                    physics:
-                    const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
                       const Center(
                         child: Text(
@@ -73,25 +73,30 @@ class CardInfoState extends State<CardInfo> with TickerProviderStateMixin {
                       ListTile(
                         title: const Text("Сервис"),
                         subtitle:
-                        Text(widget.serviceList[widget.indexOfCard].name),
+                            Text(widget.serviceList[widget.indexOfCard].name),
                         onTap: () {
-                          Clipboard.setData(ClipboardData(text: widget.serviceList[widget.indexOfCard].name));
+                          Clipboard.setData(ClipboardData(
+                              text:
+                                  widget.serviceList[widget.indexOfCard].name));
                         },
                       ),
                       ListTile(
                         title: const Text("Пользователь"),
-                        subtitle:
-                        Text(widget.serviceList[widget.indexOfCard].username),
+                        subtitle: Text(
+                            widget.serviceList[widget.indexOfCard].username),
                         onTap: () {
-                          Clipboard.setData(ClipboardData(text: widget.serviceList[widget.indexOfCard].username));
+                          Clipboard.setData(ClipboardData(
+                              text: widget
+                                  .serviceList[widget.indexOfCard].username));
                         },
                       ),
                       ListTile(
                         title: const Text("Пароль"),
-                        subtitle:
-                        const Text("• • • • • • • •"),
+                        subtitle: const Text("• • • • • • • •"),
                         onTap: () {
-                          Clipboard.setData(ClipboardData(text: widget.serviceList[widget.indexOfCard].password));
+                          Clipboard.setData(ClipboardData(
+                              text: widget
+                                  .serviceList[widget.indexOfCard].password));
                         },
                       ),
                       Row(
@@ -99,17 +104,19 @@ class CardInfoState extends State<CardInfo> with TickerProviderStateMixin {
                           Expanded(
                             child: ListTile(
                               title: const Text("Ключ"),
-                              subtitle: Text(
-                                  widget.serviceList[widget.indexOfCard].otp),
+                              subtitle: Text(widget
+                                  .serviceList[widget.indexOfCard].otpKey),
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: widget.serviceList[widget.indexOfCard].otp));
+                                Clipboard.setData(ClipboardData(
+                                    text: widget.serviceList[widget.indexOfCard]
+                                        .otpKey));
                               },
                             ),
                           ),
                           Container(
                             padding: const EdgeInsets.all(15),
                             child: CircularProgressIndicator(
-                              value: passwordTimeLineController.value,
+                              value: otpTimeLineController.value,
                               strokeWidth: 8,
                             ),
                           ),
