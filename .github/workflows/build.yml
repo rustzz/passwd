@@ -33,8 +33,8 @@ jobs:
         with:
           name: release
           path: |
-            $OUT_APK
-            $OUT_AAB
+            "{{OUT_APK}}"
+            "{{OUT_AAB}}"
       - run: |
           export CAPTION="COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE:"$'\n'"${COMMIT_MESSAGE}"
           curl -F document=@"${OUT_APK}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
@@ -56,7 +56,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: release
-          path: $OUT_LINUX
+          path: "{{OUT_LINUX}}"
       - run: |
           export CAPTION="COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE:"$'\n'"${COMMIT_MESSAGE}"
           curl -F document=@"${OUT_LINUX}/../passwd.tar.gz" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
