@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({
@@ -10,17 +11,14 @@ class NavDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          // const DrawerHeader(
-          //   child: Text("Passwd"),
-          // ),
           ListTile(
-            title: const Text("Passwd"),
+            title: Text(AppLocalizations.of(context)!.navDrawerHomePageTitle),
             onTap: () {
               //
             },
           ),
           ListTile(
-            title: const Text("Настройки"),
+            title: Text(AppLocalizations.of(context)!.navDrawerSettingsTitle),
             onTap: () {
               //
             },

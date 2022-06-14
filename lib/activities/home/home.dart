@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:passwd/activities/edit.dart';
-import 'package:passwd/activities/home/card.dart';
+import 'package:passwd/activities/home/card_info.dart';
 import 'package:passwd/activities/home/nav.dart';
 import 'package:passwd/constants.dart';
-import 'package:passwd/widgets.dart';
+import 'package:passwd/widgets/custom.dart';
+import 'package:passwd/activities/edit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -101,7 +102,8 @@ class HomeState extends State<Home> {
               child: Row(
                 children: [
                   IconButton(
-                    tooltip: "Меню",
+                    tooltip: AppLocalizations.of(context)!
+                        .homeBottomAppBarMenuTooltip,
                     color: widgetFGColor,
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
@@ -116,7 +118,8 @@ class HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 20,
-        tooltip: "Добавить",
+        tooltip: AppLocalizations.of(context)!
+            .homeBottomAppBarFloatingActionButtonTooltip,
         foregroundColor: widgetFGColor,
         backgroundColor: widgetBGColor,
         onPressed: () async {

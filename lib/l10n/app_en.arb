@@ -1,0 +1,45 @@
+{
+    "appName": "Passwd",
+
+    "homeBottomAppBarMenuTooltip": "Menu",
+    "homeBottomAppBarFloatingActionButtonTooltip": "Add",
+
+    "navDrawerHomePageTitle": "Passwd",
+    "navDrawerSettingsTitle": "Settings",
+
+    "cardInfoTitle": "Info",
+    "cardInfoServiceNameTitle": "Service name",
+    "cardInfoUsernameTitle": "Username",
+    "cardInfoPasswordTitle": "Password",
+    "cardInfoOTPKeyTitle": "OTP Key",
+
+    "addPageTooltip": "Add",
+
+    "editPageTooltip": "Edit",
+
+    "generatorPagePasswordTextFieldLabel": "Password",
+    "generatorPageLettersCheckboxText": "Letters",
+    "generatorPageNumbersCheckboxText": "Numbers",
+    "generatorPageSpecialCharsCheckboxText": "Special chars",
+    "generatorPageUppercaseCheckboxText": "Upper case",
+    "generatorPageUppercaseError": "You cannot turn off \"Letters\" while \"Upper Case\" is enabled",
+    "generatorPageSymbolCountSliderTitle": "Symbols count",
+    "generatorPageDoneButtonTooltip": "Done",
+    
+    "generateButtonText": "Generate",
+
+    "textFieldIconButtonTooltipShow": "Show",
+    "textFieldIconButtonTooltipHide": "Hide",
+
+    "cardIconButtonTooltipDelete": "Delete",
+    "cardIconButtonTooltipEdit": "Edit",
+
+    "editAddPageServiceNameTextFieldLabel": "Service name",
+    "editAddPageUsernameTextFieldLabel": "Username",
+    "editAddPagePasswordTextFieldLabel": "Password",
+    "editAddPageOTPKeyTextFieldLabel": "OTP key",
+    "editAddPageServiceNameTextFieldErrorLabel": "Type Service name",
+    "editAddPageUsernameTextFieldErrorLabel": "Type username",
+    "editAddPagePasswordTextFieldErrorLabel": "Type password",
+    "editAddPageOTPKeyTextFieldErrorLabel": "Type OTP key"
+}

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:random_password_generator/random_password_generator.dart';
-import 'package:passwd/widgets.dart';
+import 'package:passwd/widgets/custom.dart';
 import 'package:passwd/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GenPage extends StatefulWidget {
   const GenPage({Key? key}) : super(key: key);
@@ -27,6 +28,18 @@ class GenPageState extends State<GenPage> {
   }
 
   @override
+  void initState() {
+    genPasswordTF.text = password.randomPassword(
+      letters: enableLetters,
+      uppercase: enableUppercase,
+      numbers: enableNumbers,
+      specialChar: enableSpecialChar,
+      passwordLength: passwordLength,
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MyScaffold(
       body: Padding(
@@ -35,7 +48,8 @@ class GenPageState extends State<GenPage> {
           children: [
             MyTextField(
               controller: genPasswordTF,
-              labelText: "Пароль",
+              labelText: AppLocalizations.of(context)!
+                  .generatorPagePasswordTextFieldLabel,
               suffixText: passwordLength.round().toString(),
             ),
             Column(
@@ -46,19 +60,20 @@ class GenPageState extends State<GenPage> {
                   children: [
                     Row(
                       children: [
-                        const Text("Буквы"),
+                        Text(AppLocalizations.of(context)!
+                            .generatorPageLettersCheckboxText),
                         Checkbox(
                           activeColor: widgetBGColor,
                           value: enableLetters,
                           onChanged: (value) {
                             setState(() {
                               if (enableUppercase) {
-                                errorTextLetters = const Padding(
-                                    padding: EdgeInsets.all(10),
+                                errorTextLetters = Padding(
+                                    padding: const EdgeInsets.all(10),
                                     child: Text(
-                                      "Вы не можете отключить \"Буквы\", "
-                                      "пока включен \"Верхний регистр\"",
-                                      style: TextStyle(color: Colors.red),
+                                      AppLocalizations.of(context)!
+                                          .generatorPageUppercaseError,
+                                      style: const TextStyle(color: Colors.red),
                                     ));
                                 return;
                               }
@@ -74,7 +89,8 @@ class GenPageState extends State<GenPage> {
                     ),
                     Row(
                       children: [
-                        const Text("Верхний регистр"),
+                        Text(AppLocalizations.of(context)!
+                            .generatorPageUppercaseCheckboxText),
                         Checkbox(
                           activeColor: widgetBGColor,
                           value: enableUppercase,
@@ -97,7 +113,8 @@ class GenPageState extends State<GenPage> {
                 ),
                 Row(
                   children: [
-                    const Text("Цифры"),
+                    Text(AppLocalizations.of(context)!
+                        .generatorPageNumbersCheckboxText),
                     Checkbox(
                       activeColor: widgetBGColor,
                       value: enableNumbers,
@@ -115,7 +132,8 @@ class GenPageState extends State<GenPage> {
                 ),
                 Row(
                   children: [
-                    const Text("Спец. символы"),
+                    Text(AppLocalizations.of(context)!
+                        .generatorPageSpecialCharsCheckboxText),
                     Checkbox(
                       activeColor: widgetBGColor,
                       value: enableSpecialChar,
@@ -131,16 +149,26 @@ class GenPageState extends State<GenPage> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 15),
+                Text(AppLocalizations.of(context)!
+                    .generatorPageSymbolCountSliderTitle),
                 Slider(
                   activeColor: widgetBGColor,
                   value: passwordLength,
                   onChanged: (value) {
                     setState(() {
                       passwordLength = value;
+                      genPasswordTF.text = password.randomPassword(
+                        letters: enableLetters,
+                        uppercase: enableUppercase,
+                        numbers: enableNumbers,
+                        specialChar: enableSpecialChar,
+                        passwordLength: passwordLength,
+                      );
                     });
                   },
-                  min: 8.0,
-                  max: 32.0,
+                  min: 6,
+                  max: 32,
                 ),
               ],
             ),
@@ -155,10 +183,12 @@ class GenPageState extends State<GenPage> {
                   passwordLength: passwordLength,
                 );
               },
-              child: const Text("Генерировать"),
+              child: Text(AppLocalizations.of(context)!.generateButtonText),
             ),
             const SizedBox(height: 50),
-            IconButton(
+            MyIconButton(
+              tooltip:
+                  AppLocalizations.of(context)!.generatorPageDoneButtonTooltip,
               onPressed: () {
                 Navigator.pop(context, {"password": genPasswordTF.text});
               },

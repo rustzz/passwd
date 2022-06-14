@@ -1,0 +1,45 @@
+{
+    "appName": "Passwd",
+
+    "homeBottomAppBarMenuTooltip": "Меню",
+    "homeBottomAppBarFloatingActionButtonTooltip": "Добавить",
+
+    "navDrawerHomePageTitle": "Passwd",
+    "navDrawerSettingsTitle": "Настройки",
+
+    "cardInfoTitle": "Информация",
+    "cardInfoServiceNameTitle": "Сервис",
+    "cardInfoUsernameTitle": "Пользователь",
+    "cardInfoPasswordTitle": "Пароль",
+    "cardInfoOTPKeyTitle": "Ключ",
+
+    "addPageTooltip": "Добавить",
+
+    "editPageTooltip": "Изменить",
+
+    "generatorPagePasswordTextFieldLabel": "Пароль",
+    "generatorPageLettersCheckboxText": "Буквы",
+    "generatorPageNumbersCheckboxText": "Цифры",
+    "generatorPageSpecialCharsCheckboxText": "Спец. символы",
+    "generatorPageUppercaseCheckboxText": "Верхний регистр",
+    "generatorPageUppercaseError": "Вы не можете отключить \"Буквы\", пока включен \"Верхний регистр\"",
+    "generatorPageSymbolCountSliderTitle": "Количество символов",
+    "generatorPageDoneButtonTooltip": "Готово",
+    
+    "generateButtonText": "Генерировать",
+
+    "textFieldIconButtonTooltipShow": "Показать",
+    "textFieldIconButtonTooltipHide": "Скрыть",
+
+    "cardIconButtonTooltipDelete": "Delete",
+    "cardIconButtonTooltipEdit": "Edit",
+
+    "editAddPageServiceNameTextFieldLabel": "Название сервиса",
+    "editAddPageUsernameTextFieldLabel": "Имя пользователя",
+    "editAddPagePasswordTextFieldLabel": "Пароль",
+    "editAddPageOTPKeyTextFieldLabel": "Ключ",
+    "editAddPageServiceNameTextFieldErrorLabel": "Впишите название",
+    "editAddPageUsernameTextFieldErrorLabel": "Впишите имя пользователя",
+    "editAddPagePasswordTextFieldErrorLabel": "Впишите пароль",
+    "editAddPageOTPKeyTextFieldErrorLabel": "Впишите ключ OTP"
+}

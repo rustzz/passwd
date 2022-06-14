@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:passwd/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// TextField
-//ignore: must_be_immutable
+// ignore: must_be_immutable
 class MyTextField extends StatefulWidget {
   MyTextField(
       {Key? key,
@@ -14,12 +14,12 @@ class MyTextField extends StatefulWidget {
       this.suffixText})
       : super(key: key);
 
-  final TextEditingController? controller;
+  TextEditingController? controller;
   final bool autofocus;
   bool obscureText;
   final String? labelText;
   final String? errorText;
-  final String? suffixText;
+  String? suffixText;
 
   @override
   MyTextFieldState createState() => MyTextFieldState();
@@ -37,6 +37,9 @@ class MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     Widget suffixIcon = IconButton(
+      tooltip: widget.obscureText
+          ? AppLocalizations.of(context)!.textFieldIconButtonTooltipShow
+          : AppLocalizations.of(context)!.textFieldIconButtonTooltipHide,
       icon: Icon(
         widget.obscureText ? Icons.visibility : Icons.visibility_off,
         color: widgetBGColor,
@@ -48,6 +51,13 @@ class MyTextFieldState extends State<MyTextField> {
       },
     );
     return TextField(
+      onChanged: (value) {
+        setState(() {
+          widget.suffixText = widget.obscureText
+              ? widget.controller!.text.length.toString()
+              : null;
+        });
+      },
       cursorColor: widgetBGColor,
       autofocus: widget.autofocus,
       controller: widget.controller,
@@ -59,10 +69,10 @@ class MyTextFieldState extends State<MyTextField> {
             color: widgetBGColor,
             width: 3,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: borderRadius,
         ),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: borderRadius,
         ),
         labelText: widget.labelText,
         errorText: widget.errorText,
@@ -83,6 +93,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+        elevation: MaterialStateProperty.all(elevation),
         padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
         backgroundColor: MaterialStateProperty.all(widgetBGColor),
         foregroundColor: MaterialStateProperty.all(widgetFGColor),
@@ -116,25 +127,29 @@ class MyCardState extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+      elevation: elevation,
+      shape: const RoundedRectangleBorder(
+        borderRadius: borderRadius,
       ),
       child: Column(
         children: [
-          ListTile(
-            title: Text(widget.name),
-            subtitle: Text(widget.username),
-          ),
           Row(
             children: [
+              Expanded(
+                child: ListTile(
+                  title: Text(widget.name),
+                  subtitle: Text(widget.username),
+                ),
+              ),
               IconButton(
-                tooltip: "Удалить",
+                tooltip:
+                    AppLocalizations.of(context)!.cardIconButtonTooltipDelete,
                 onPressed: widget.onPressedDelete,
                 icon: const Icon(Icons.delete),
               ),
               IconButton(
-                tooltip: "Изменить",
+                tooltip:
+                    AppLocalizations.of(context)!.cardIconButtonTooltipEdit,
                 onPressed: widget.onPressedEdit,
                 icon: const Icon(Icons.edit),
               ),
@@ -175,8 +190,39 @@ class MyScaffold extends StatelessWidget {
       floatingActionButtonLocation: floatingActionButtonLocation,
       appBar: AppBar(
         automaticallyImplyLeading: automaticallyImplyLeading,
-        title: const Text("Passwd"),
+        title: Text(AppLocalizations.of(context)!.appName),
         centerTitle: true,
+      ),
+    );
+  }
+}
+
+// IconButton with background color
+class MyIconButton extends StatelessWidget {
+  const MyIconButton(
+      {super.key,
+      required this.onPressed,
+      required this.tooltip,
+      required this.icon});
+
+  final VoidCallback onPressed;
+  final String tooltip;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: elevation,
+      borderRadius: const BorderRadius.all(Radius.circular(100)),
+      child: CircleAvatar(
+        radius: 35,
+        backgroundColor: widgetBGColor,
+        foregroundColor: widgetFGColor,
+        child: IconButton(
+          tooltip: tooltip,
+          onPressed: onPressed,
+          icon: icon,
+        ),
       ),
     );
   }
