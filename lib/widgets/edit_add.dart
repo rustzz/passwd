@@ -29,6 +29,8 @@ class EditAddState extends State<EditAdd> {
   bool passwordEmpty = false;
   bool otpEmpty = false;
 
+  String suffixText = "";
+
   @override
   void dispose() {
     widget.nameTF.dispose();
@@ -36,6 +38,12 @@ class EditAddState extends State<EditAdd> {
     widget.passwordTF.dispose();
     widget.otpTF.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    suffixText = widget.passwordTF.text.length.toString();
+    super.initState();
   }
 
   @override
@@ -78,7 +86,7 @@ class EditAddState extends State<EditAdd> {
                       ? AppLocalizations.of(context)!
                           .editAddPagePasswordTextFieldErrorLabel
                       : null,
-                  suffixText: widget.passwordTF.text.length.toString(),
+                  suffixText: suffixText,
                 ),
                 const SizedBox(height: 10),
                 MyButton(
@@ -87,6 +95,9 @@ class EditAddState extends State<EditAdd> {
                         await Navigator.of(context).pushNamed("/genPassword");
                     if (result == null) return;
                     widget.passwordTF.text = result["password"];
+                    setState(() {
+                      suffixText = widget.passwordTF.text.length.toString();
+                    });
                   },
                   child: Text(AppLocalizations.of(context)!.generateButtonText),
                 ),
