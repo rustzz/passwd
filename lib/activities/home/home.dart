@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passwd/activities/home/card_info.dart';
-import 'package:passwd/activities/home/nav.dart';
+import 'package:passwd/activities/home/layouts/card_info.dart';
+import 'package:passwd/activities/home/layouts/nav.dart';
 import 'package:passwd/constants.dart';
 import 'package:passwd/widgets/custom.dart';
 import 'package:passwd/activities/edit.dart';

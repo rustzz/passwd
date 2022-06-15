@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:passwd/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -78,6 +79,57 @@ class MyTextFieldState extends State<MyTextField> {
         errorText: widget.errorText,
       ),
       obscureText: widget.obscureText,
+    );
+  }
+}
+
+class MyTextFieldPassword extends StatefulWidget {
+  const MyTextFieldPassword({
+    super.key,
+    required this.focusNode,
+    required this.inputController,
+    required this.func,
+  });
+
+  final FocusNode focusNode;
+  final TextEditingController inputController;
+  final Function(String) func;
+
+  @override
+  MyTextFieldPasswordState createState() => MyTextFieldPasswordState();
+}
+
+class MyTextFieldPasswordState extends State<MyTextFieldPassword> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 50,
+      child: TextField(
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+        ],
+        keyboardType: TextInputType.number,
+        onChanged: widget.func,
+        decoration: const InputDecoration(
+          counterText: "",
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widgetBGColor,
+              width: 3,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+        focusNode: widget.focusNode,
+        controller: widget.inputController,
+        autofocus: true,
+        maxLength: 1,
+        textAlign: TextAlign.center,
+        textAlignVertical: TextAlignVertical.center,
+      ),
     );
   }
 }
