@@ -8,6 +8,7 @@ on:
 env:
   TELEGRAM_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
   TELEGRAM_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+  RELEASING_TOKEN: ${{ secrets.TOKEN }}
   COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
   COMMIT_SHA: ${{ github.sha }}
   OUT_APK: "build/app/outputs/apk/release/app-release.apk"
@@ -50,7 +51,8 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           title: "n-Alpha"
-          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "latest"
+          repo_token: "${{ env.RELEASING_TOKEN }}"
           prerelease: false
           files: |
             ${{ env.OUT_APK }}
