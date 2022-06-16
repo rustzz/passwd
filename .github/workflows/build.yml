@@ -47,7 +47,6 @@ jobs:
           curl -F document=@"${OUT_APK}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
           curl -F document=@"${OUT_AAB}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
           curl -F document=@"${OUT_LINUX}" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
-      - name: Automatic Releases
       - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
           title: "n-Alpha"
