@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:passwd/activities/home/layouts/card_info.dart';
-import 'package:passwd/activities/home/layouts/nav.dart';
+// import 'package:passwd/activities/home/layouts/nav.dart';
 import 'package:passwd/constants.dart';
 import 'package:passwd/widgets/custom.dart';
 import 'package:passwd/activities/edit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  HomeState createState() => HomeState();
+  HomePageState createState() => HomePageState();
 }
 
-class HomeState extends State<Home> {
+class HomePageState extends State<HomePage> {
   List<Service> serviceList = [];
 
   @override
@@ -41,13 +41,13 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MyScaffold(
       automaticallyImplyLeading: false,
-      drawer: const ClipRRect(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10.0),
-          bottomRight: Radius.circular(10.0),
-        ),
-        child: NavDrawer(),
-      ),
+      // drawer: const ClipRRect(
+      //   borderRadius: BorderRadius.only(
+      //     topRight: Radius.circular(10.0),
+      //     bottomRight: Radius.circular(10.0),
+      //   ),
+      //   child: NavDrawerLayout(),
+      // ),
       body: ListView.builder(
         padding: const EdgeInsets.all(5),
         itemCount: serviceList.length,
@@ -58,7 +58,7 @@ class HomeState extends State<Home> {
                 backgroundColor: Colors.transparent,
                 context: context,
                 builder: (BuildContext context) {
-                  return CardInfo(
+                  return CardInfoLayout(
                     serviceList: serviceList,
                     indexOfCard: index,
                   );
@@ -103,12 +103,12 @@ class HomeState extends State<Home> {
                 children: [
                   IconButton(
                     tooltip: AppLocalizations.of(context)!
-                        .homeBottomAppBarMenuTooltip,
+                        .homeBottomAppBarSettingsTooltip,
                     color: widgetFGColor,
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      Navigator.pushNamed(context, "/settings");
                     },
-                    icon: const Icon(Icons.menu),
+                    icon: const Icon(Icons.settings),
                   )
                 ],
               ),

@@ -1,7 +1,9 @@
 {
     "appName": "Passwd",
 
-    "homeBottomAppBarMenuTooltip": "Меню",
+    "notImplemented": "Не реализовано",
+
+    "homeBottomAppBarSettingsTooltip": "Настройки",
     "homeBottomAppBarFloatingActionButtonTooltip": "Добавить",
 
     "navDrawerHomePageTitle": "Passwd",

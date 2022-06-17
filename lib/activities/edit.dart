@@ -11,14 +11,14 @@ class EditArgs {
   EditArgs(this.name, this.username, this.password, this.otp);
 }
 
-class Edit extends StatefulWidget {
-  const Edit({Key? key}) : super(key: key);
+class EditPage extends StatefulWidget {
+  const EditPage({Key? key}) : super(key: key);
 
   @override
-  EditState createState() => EditState();
+  EditPageState createState() => EditPageState();
 }
 
-class EditState extends State<Edit> {
+class EditPageState extends State<EditPage> {
   final nameTF = TextEditingController();
   final usernameTF = TextEditingController();
   final passwordTF = TextEditingController();

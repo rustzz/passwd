@@ -5,6 +5,7 @@ import 'package:passwd/activities/edit.dart';
 import 'package:passwd/activities/generator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:passwd/activities/pin_input.dart';
+import 'package:passwd/activities/settings/settings.dart';
 
 void main() {
   runApp(const PasswdApp());
@@ -34,11 +35,12 @@ class PasswdApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       initialRoute: "/",
       routes: {
-        "/": (context) => const PINInput(),
-        "/home": (context) => const Home(),
-        "/add": (context) => const Add(),
-        "/edit": (context) => const Edit(),
+        "/": (context) => const PINInputPage(),
+        "/home": (context) => const HomePage(),
+        "/add": (context) => const AddPage(),
+        "/edit": (context) => const EditPage(),
         "/genPassword": (context) => const GenPage(),
+        "/settings": (context) => const SettingsPage(),
       },
     );
   }

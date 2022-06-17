@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:passwd/widgets/custom.dart';
 
-class PINInput extends StatefulWidget {
-  const PINInput({super.key});
+class PINInputPage extends StatefulWidget {
+  const PINInputPage({super.key});
 
   @override
-  PINInputState createState() => PINInputState();
+  PINInputPageState createState() => PINInputPageState();
 }
 
-class PINInputState extends State<PINInput> {
+class PINInputPageState extends State<PINInputPage> {
   FocusNode firstFocus = FocusNode();
   FocusNode secondFocus = FocusNode();
   FocusNode thirdFocus = FocusNode();

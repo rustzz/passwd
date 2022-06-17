@@ -1,7 +1,9 @@
 {
     "appName": "Passwd",
 
-    "homeBottomAppBarMenuTooltip": "Menu",
+    "notImplemented": "Not implemented",
+
+    "homeBottomAppBarSettingsTooltip": "Settings",
     "homeBottomAppBarFloatingActionButtonTooltip": "Add",
 
     "navDrawerHomePageTitle": "Passwd",

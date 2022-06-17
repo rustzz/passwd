@@ -8,8 +8,8 @@ class Service {
   Service(this.name, this.username, this.password, this.otpKey);
 }
 
-class CardInfo extends StatefulWidget {
-  const CardInfo({
+class CardInfoLayout extends StatefulWidget {
+  const CardInfoLayout({
     Key? key,
     required this.serviceList,
     required this.indexOfCard,
@@ -19,10 +19,11 @@ class CardInfo extends StatefulWidget {
   final int indexOfCard;
 
   @override
-  CardInfoState createState() => CardInfoState();
+  CardInfoLayoutState createState() => CardInfoLayoutState();
 }
 
-class CardInfoState extends State<CardInfo> with TickerProviderStateMixin {
+class CardInfoLayoutState extends State<CardInfoLayout>
+    with TickerProviderStateMixin {
   late AnimationController otpTimeLineController;
 
   @override
