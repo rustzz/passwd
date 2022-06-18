@@ -70,7 +70,7 @@ jobs:
           channel: 'master'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
-      - run: "powershell Compress-Archive ${{ env.OUT_WIN }}\Release win.zip"
+      - run: "powershell Compress-Archive ${{ env.OUT_WIN }}\\Release win.zip"
       - uses: actions/upload-artifact@master
         with:
           name: release
