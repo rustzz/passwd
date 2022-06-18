@@ -69,8 +69,7 @@ jobs:
           channel: 'master'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
-      - run: powershell Compress-Archive ${{ env.OUT_WIN }} win.zip
-      - run: tree /f
+      - run: "powershell Compress-Archive ${{ env.OUT_WIN }} ${{ env.OUT_WIN }}\\..\\win.zip"
       - uses: actions/upload-artifact@master
         with:
           name: release
@@ -78,7 +77,7 @@ jobs:
             ${{ env.OUT_WIN }}
       - run: |
           export CAPTION="COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE:"$'\n'"${COMMIT_MESSAGE}"
-          curl -F document=@"win.zip" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
+          curl -F document=@"$OUT_WIN/../win.zip" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
         shell: bash
       - uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
@@ -87,4 +86,4 @@ jobs:
           repo_token: "${{ env.RELEASING_TOKEN }}"
           prerelease: false
           files: |
-            win.zip
+            ${{ env.OUT_WIN }}/../win.zip
