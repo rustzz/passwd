@@ -14,7 +14,7 @@ env:
   OUT_APK: "build/app/outputs/apk/release/app-release.apk"
   OUT_AAB: "build/app/outputs/bundle/release/app-release.aab"
   OUT_LINUX: "build/linux/x64/release/bundle"
-  OUT_WIN: "build/windows/runner/Release"
+  OUT_WIN: "windows/runner/Release"
 
 jobs:
   BuildingAndroidNLinux:
