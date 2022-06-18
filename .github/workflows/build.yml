@@ -15,6 +15,7 @@ env:
   OUT_AAB: "build/app/outputs/bundle/release/app-release.aab"
   OUT_LINUX: "build/linux/x64/release/bundle"
   OUT_WIN: "build\\windows\\runner"
+  OUT_WIN_UNIX: "build/windows/runner"
 
 jobs:
   BuildingAndroidNLinux:
@@ -69,12 +70,12 @@ jobs:
           channel: 'master'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
-      - run: "powershell Compress-Archive ${{ env.OUT_WIN }}/Release win.zip"
+      - run: "powershell Compress-Archive ${{ env.OUT_WIN }}\Release win.zip"
       - uses: actions/upload-artifact@master
         with:
           name: release
           path: |
-            ${{ env.OUT_WIN }}\Release"
+            ${{ env.OUT_WIN_UNIX }}/Release
       - run: |
           export CAPTION="COMMIT: [Github](https://github.com/rustzz/passwd/commit/${COMMIT_SHA})"$'\n'"MESSAGE:"$'\n'"${COMMIT_MESSAGE}"
           curl -F document=@"win.zip" -F "caption=${CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
