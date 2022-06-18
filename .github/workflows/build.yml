@@ -86,4 +86,4 @@ jobs:
           repo_token: "${{ env.RELEASING_TOKEN }}"
           prerelease: false
           files: |
-            ${{ env.OUT_WIN }}/../win.zip
+            ${{ env.OUT_WIN }}\..\win.zip
