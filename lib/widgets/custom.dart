@@ -5,22 +5,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class MyTextField extends StatefulWidget {
-  MyTextField(
-      {Key? key,
-      this.controller,
-      this.autofocus = false,
-      this.obscureText = false,
-      this.labelText,
-      this.errorText,
-      this.suffixText})
-      : super(key: key);
+  MyTextField({
+    Key? key,
+    this.controller,
+    this.autofocus = false,
+    this.obscureText = false,
+    this.labelText,
+    this.errorText,
+    this.suffixText,
+  }) : super(key: key);
 
   TextEditingController? controller;
-  final bool autofocus;
+  bool autofocus;
   bool obscureText;
-  final String? labelText;
-  final String? errorText;
+  String? labelText;
+  String? errorText;
   String? suffixText;
+  FocusNode focusNode = FocusNode();
 
   @override
   MyTextFieldState createState() => MyTextFieldState();
@@ -31,6 +32,7 @@ class MyTextFieldState extends State<MyTextField> {
 
   @override
   void initState() {
+    if (widget.autofocus) widget.focusNode.requestFocus();
     obsOverride = widget.obscureText;
     super.initState();
   }
@@ -52,6 +54,7 @@ class MyTextFieldState extends State<MyTextField> {
       },
     );
     return TextField(
+      focusNode: widget.focusNode,
       onChanged: (value) {
         setState(() {
           widget.suffixText = widget.obscureText
@@ -83,17 +86,20 @@ class MyTextFieldState extends State<MyTextField> {
   }
 }
 
+// ignore: must_be_immutable
 class MyTextFieldPassword extends StatefulWidget {
-  const MyTextFieldPassword({
+  MyTextFieldPassword({
     super.key,
+    this.autofocus = false,
     required this.focusNode,
     required this.inputController,
     required this.func,
   });
 
-  final FocusNode focusNode;
-  final TextEditingController inputController;
-  final Function(String) func;
+  bool autofocus;
+  FocusNode focusNode = FocusNode();
+  TextEditingController inputController;
+  Function(String) func;
 
   @override
   MyTextFieldPasswordState createState() => MyTextFieldPasswordState();
@@ -101,9 +107,15 @@ class MyTextFieldPassword extends StatefulWidget {
 
 class MyTextFieldPasswordState extends State<MyTextFieldPassword> {
   @override
+  void initState() {
+    if (widget.autofocus) widget.focusNode.requestFocus();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 50,
+      width: 55,
       child: TextField(
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -125,7 +137,7 @@ class MyTextFieldPasswordState extends State<MyTextFieldPassword> {
         ),
         focusNode: widget.focusNode,
         controller: widget.inputController,
-        autofocus: true,
+        autofocus: widget.autofocus,
         maxLength: 1,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,

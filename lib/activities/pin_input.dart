@@ -20,6 +20,12 @@ class PINInputPageState extends State<PINInputPage> {
   TextEditingController fourInput = TextEditingController();
 
   @override
+  initState() {
+    firstFocus.requestFocus();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -31,6 +37,7 @@ class PINInputPageState extends State<PINInputPage> {
             children: [
               const SizedBox(width: 30),
               MyTextFieldPassword(
+                autofocus: true,
                 focusNode: firstFocus,
                 inputController: firstInput,
                 func: (value) {
